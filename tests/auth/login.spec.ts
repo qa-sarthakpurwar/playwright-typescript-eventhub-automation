@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { PageObjectManager } from '../../pageObjects/PageObjectManager';
 
 
 test.describe('Authentication & User Management', () => {
@@ -9,25 +10,23 @@ test.describe('Authentication & User Management', () => {
         /* Navigate  to  login page */
         await page.goto('https://eventhub.rahulshettyacademy.com/login');
 
-        /** Enter email and password with valid credentials */
-        await page.getByRole('textbox', { name: 'Email' }).fill('signaturemusic12@gmail.com');
-        await page.getByRole('textbox', { name: 'Password' }).fill('AssertSuccess@204');
 
-        /** Click Sign In button */
-        await page.getByRole('button', { name: 'Sign In' }).click();
+        const pageObject = new PageObjectManager(page);
+        const loginPage = pageObject.getLoginPage();
+
+        loginPage.login("signaturemusic12@gmail.com", "AssertSuccess@204");
 
         /**Verify user is redirected to home page */
-        await expect(page.getByRole('button', { name: 'My Bookings' })).toBeVisible();
+        await expect(loginPage.myBookingsButton()).toBeVisible();
 
         /**Verify user email is visible in navigation */
-
-        await expect(page.locator('#user-email-display')).toHaveText('signaturemusic12@gmail.com');
+        await expect(loginPage.userEmailDisplay()).toHaveText('signaturemusic12@gmail.com');
 
         /** Verify Logout button is visible */
-        await expect(page.getByRole('button', { name: 'Logout' })).toBeVisible();
+        await expect(loginPage.logOutButton()).toBeVisible();
 
     });
-    
+
     test('Login fails with invalid email', async ({ page }) => {
 
 
