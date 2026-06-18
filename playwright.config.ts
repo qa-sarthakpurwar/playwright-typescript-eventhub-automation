@@ -12,6 +12,7 @@ export default defineConfig({
     trace: 'on',
     headless: false,
      screenshot: 'on',
+      baseURL: 'https://eventhub.rahulshettyacademy.com'
   },
 
 

@@ -10,14 +10,23 @@ export class LoginPage {
     userEmailDisplay = () => this.page.locator('#user-email-display');
     myBookingsButton = () => this.page.getByRole('button', { name: 'My Bookings' })
     logOutButton = () => this.page.getByRole('button', { name: 'Logout' });
+    invalidEmailMsg = () => this.page.locator('#email + p');
+    invalidEmailPasswordMsg = () => this.page.getByText('Invalid email or password');
 
+
+    async navigateToLoginPage() {
+        await this.page.goto('/login');
+    }
 
     async login(userEmail: string, password: string) {
         await this.emailInput().fill(userEmail);
         await this.passwordInput().fill(password);
         await this.signInButton().click();
-
     }
+
+ 
+
+
 
 
 }

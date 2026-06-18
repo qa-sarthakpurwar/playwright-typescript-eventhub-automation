@@ -1,20 +1,20 @@
-import { test, expect } from '@playwright/test';
-import { PageObjectManager } from '../../pageObjects/PageObjectManager';
+import { test } from '../../fixtures/baseFixture';
+import { expect } from '@playwright/test';
+import { LoginPage } from '../../pages/LoginPage';
 
 
 test.describe('Authentication & User Management', () => {
 
 
-    test('Successful login with valid credentials', async ({ page }) => {
+
+
+    test('Successful login with valid credentials', async ({ loginPage }) => {
 
         /* Navigate  to  login page */
-        await page.goto('https://eventhub.rahulshettyacademy.com/login');
+        await loginPage.navigateToLoginPage();
 
-
-        const pageObject = new PageObjectManager(page);
-        const loginPage = pageObject.getLoginPage();
-
-        loginPage.login("signaturemusic12@gmail.com", "AssertSuccess@204");
+        /** Login with valid creds */
+        await loginPage.login("signaturemusic12@gmail.com", "AssertSuccess@204");
 
         /**Verify user is redirected to home page */
         await expect(loginPage.myBookingsButton()).toBeVisible();
@@ -27,52 +27,37 @@ test.describe('Authentication & User Management', () => {
 
     });
 
-    test('Login fails with invalid email', async ({ page }) => {
+    test('Login fails with invalid email', async ({ loginPage }) => {
 
 
         /** Navigate to login page */
+        await loginPage.navigateToLoginPage();
 
-        await page.goto('https://eventhub.rahulshettyacademy.com/login');
-
-        /**Enter invalid email and valid password */
-
-        await page.getByRole('textbox', { name: 'Email' }).fill('invalidmailgmail.com');
-        await page.getByRole('textbox', { name: 'Password' }).fill("AssertSuccess@204");
-
-        /**Click Sign In button */
-
-        await page.getByRole('button', { name: 'Sign In' }).click();
+        /**Login with invalid email and valid password */
+        await loginPage.login('invalidgmail.com', 'AssertSuccess@204');
 
         /**Verify error message is displayed */
-
-        await expect(page.locator('#email + p')).toHaveText('Enter a valid email');
+        await expect(loginPage.invalidEmailMsg()).toHaveText('Enter a valid email');
 
 
     });
 
-    test('Login fails with invalid password', async ({ page }) => {
+    test('Login fails with invalid password', async ({ loginPage, page }) => {
 
 
         /** Navigate to login page */
+        await loginPage.navigateToLoginPage();
 
-        await page.goto('https://eventhub.rahulshettyacademy.com/login');
-
-        /**Enter invalid email and valid password */
-
-        await page.getByRole('textbox', { name: 'Email' }).fill('signaturemusic12@gmail.com');
-        await page.getByRole('textbox', { name: 'Password' }).fill("AssertSuccess@@@");
-
-        /**Click Sign In button */
-
-        await page.getByRole('button', { name: 'Sign In' }).click();
+        /**Login with valid email and invalid password */
+        await loginPage.login('signaturemusic12@gmail.com', 'AssertSuccess@@@');
 
         /**Verify error message is displayed */
 
-        await expect(page.getByText('Invalid email or password')).toBeVisible();
-        await expect(page.url()).toContain('/login');
+        await expect(loginPage.invalidEmailPasswordMsg()).toBeVisible();
+        await expect(page).toHaveURL('/login');
 
-        expect(page.getByRole('textbox', { name: 'Email' })).toHaveValue('signaturemusic12@gmail.com');
-        expect(page.getByRole('textbox', { name: 'Password' })).toHaveValue('AssertSuccess@@@');
+        expect(loginPage.emailInput()).toHaveValue('signaturemusic12@gmail.com');
+        expect(loginPage.passwordInput()).toHaveValue('AssertSuccess@@@');
 
 
     });
