@@ -16,9 +16,13 @@ test.describe('Booking Management', () => {
         await page.locator("a:has-text('View all')").click();
         /**Verify that u are in  Events Tab */
         await expect(page.getByRole('heading', { name: 'Upcoming Events' })).toBeVisible();
-        console.log(page.getByRole('link', { name: 'Book Now' }).count());
-       // await expect(page.getByRole('link', { name: 'Book Now' }).count()).toBeGreaterThan(1);
+        await expect(page.getByRole('link', { name: 'Book Now' })).toHaveCount(4);
+
+        // await expect(page.getByRole('link', { name: 'Book Now' }).count()).toBeGreaterThan(1);
         await page.getByPlaceholder('Search events, venues…').fill('Tech Meetup');
+
+        await expect(page.getByRole('heading', { name: 'Upcoming Events' })).toBeVisible();
+
         await expect(page.getByRole('link', { name: 'Book Now' })).toHaveCount(1);
 
 
