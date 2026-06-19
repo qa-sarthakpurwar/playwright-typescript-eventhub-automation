@@ -1,4 +1,4 @@
-import { Page, Locator } from '@playwright/test';
+import { Page} from '@playwright/test';
 
 export class LoginPage {
 
@@ -19,9 +19,9 @@ export class LoginPage {
         await this.page.goto('/login');
     }
 
-    async login(userEmail: string, password: string) {
-        await this.emailInput().fill(userEmail);
-        await this.passwordInput().fill(password);
+    async login(validUser: any) {
+        await this.emailInput().fill(validUser.email);
+        await this.passwordInput().fill(validUser.password);
         await this.signInButton().click();
     }
 

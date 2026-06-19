@@ -11,7 +11,17 @@
         "invalidEmailMsg": "Enter a valid email"
     },
     "EventsPage": {
-        "searchEvent": "Music Concert",
-        "filter": "Upcoming"
+        "eventDetails": {
+            "title": "Tech Meetup",
+            "category": "Conference",
+            "city": "Hyderabad",
+            "venue": "TCS Campus",
+            "dateTime": "2026-07-20T16:25",
+            "price": "500",
+            "seats": "1000",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYY3kFwFf9FDvKBpQuheW4ynP7SrOZ4FRVrwCHqz1biw&s=10"
+        },
+        "eventLimit": "You can add up to 6 events"
     }
+    
 }
