@@ -1,0 +1,17 @@
+{
+    "LoginPage": {
+        "validUser": {
+            "email": "signaturemusic12@gmail.com",
+            "password": "AssertSuccess@204"
+        },
+        "invalidUser": {
+            "email": "invalidgmail.com",
+            "password": "AssertSuccess@@@"
+        },
+        "invalidEmailMsg": "Enter a valid email"
+    },
+    "EventsPage": {
+        "searchEvent": "Music Concert",
+        "filter": "Upcoming"
+    }
+}

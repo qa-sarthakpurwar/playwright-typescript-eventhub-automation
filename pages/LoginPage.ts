@@ -12,6 +12,7 @@ export class LoginPage {
     logOutButton = () => this.page.getByRole('button', { name: 'Logout' });
     invalidEmailMsg = () => this.page.locator('#email + p');
     invalidEmailPasswordMsg = () => this.page.getByText('Invalid email or password');
+    signInToEventHubText = () => this.page.getByRole('heading', { name: 'Sign in to EventHub' });
 
 
     async navigateToLoginPage() {
@@ -24,7 +25,7 @@ export class LoginPage {
         await this.signInButton().click();
     }
 
- 
+
 
 
 
