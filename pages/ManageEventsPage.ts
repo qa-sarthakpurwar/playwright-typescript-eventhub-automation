@@ -2,7 +2,7 @@ import { Page } from "@playwright/test";
 
 
 
-export class EventsPage {
+export class ManageEventsPage {
     constructor(private page: Page) { }
 
 

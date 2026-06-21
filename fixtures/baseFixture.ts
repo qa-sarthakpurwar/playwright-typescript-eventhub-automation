@@ -1,14 +1,18 @@
 import { test as base, Page } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { DashboardPage } from '../pages/DashboardPage';
-import { EventsPage } from '../pages/EventsPage';
+import { ManageEventsPage } from '../pages/ManageEventsPage';
+import { EventsTabPage } from '../pages/EventsTabPage';
+import { EventBookingPage } from '../pages/EventBookingPage';
 
 
 export const test = base.extend<{
     page: Page;
     loginPage: LoginPage;
     dashboardPage: DashboardPage;
-    eventsPage: EventsPage;
+    manageEventsPage: ManageEventsPage;
+    eventsTabPage: EventsTabPage;
+    eventBookingPage: EventBookingPage;
 
 }>
 
@@ -25,10 +29,19 @@ export const test = base.extend<{
             const dashBoardPage = new DashboardPage(page);
             await use(dashBoardPage);
         },
-        eventsPage: async ({ page }, use) => {
-            const eventsPage = new EventsPage(page);
-            await use(eventsPage);
+        manageEventsPage: async ({ page }, use) => {
+            const manageEventsPage = new ManageEventsPage(page);
+            await use(manageEventsPage);
+        },
+        eventsTabPage: async ({ page }, use) => {
+            const eventsTabPage = new EventsTabPage(page);
+            await use(eventsTabPage);
+        },
+        eventBookingPage: async ({ page }, use) => {
+            const eventBookingPage = new EventBookingPage(page);
+            await use(eventBookingPage);
         }
+
 
 
 
