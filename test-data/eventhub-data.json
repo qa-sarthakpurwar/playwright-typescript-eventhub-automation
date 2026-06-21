@@ -22,6 +22,14 @@
             "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYY3kFwFf9FDvKBpQuheW4ynP7SrOZ4FRVrwCHqz1biw&s=10"
         },
         "eventLimit": "You can add up to 6 events"
+    },
+    "EventsBookingPage" : {
+        "nameInputPlaceHolder": "Your full name",
+        "emailInputPlaceHolder": "you@email.com" ,
+        "name": "Sarthak",
+        "phoneNo": "464692462398",
+        "bookinConfirmedHeading": "Booking Confirmed!"
+
     }
     
 }

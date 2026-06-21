@@ -24,7 +24,7 @@ test.describe('Booking Management', () => {
 
 
         /** Search for specific Event */
-        await eventsTabPage.searchInput().fill('Tech Meetup');
+        await eventsTabPage.searchInput().fill(testData.EventsPage.eventDetails.title);
         await expect(eventsTabPage.bookNowButton()).toHaveCount(1);
 
         /* Go into the event booking page*/
@@ -41,11 +41,11 @@ test.describe('Booking Management', () => {
 
         /* Enter remaining details  in form */
 
-        await expect(eventBookingPage.fullNameInput()).toHaveAttribute('placeholder', 'Your full name');
-        await expect(eventBookingPage.emailInput()).toHaveAttribute('placeholder', 'you@email.com');
+        await expect(eventBookingPage.fullNameInput()).toHaveAttribute('placeholder', testData.EventsBookingPage.nameInputPlaceHolder);
+        await expect(eventBookingPage.emailInput()).toHaveAttribute('placeholder', testData.EventsBookingPage.emailInputPlaceHolder);
         await expect(eventBookingPage.phoneNoInput).toBeTruthy();
 
-        await eventBookingPage.enterUserDetailsInForm('Sarthak', 'signaturemusic12@gmail.com', '464692462398');
+        await eventBookingPage.enterUserDetailsInForm(testData.EventsBookingPage.name, testData.LoginPage.validUser.email, testData.EventsBookingPage.phoneNo);
 
         /**Verify the total calculated amount according  to the ticket amount */
 
@@ -59,14 +59,14 @@ test.describe('Booking Management', () => {
         await eventBookingPage.bookTheEvent();
 
         /**Verify confirmed booking */
-        await expect(eventBookingPage.bookingConfirmedHeading()).toContainText('Booking Confirmed!');
+        await expect(eventBookingPage.bookingConfirmedHeading()).toContainText(testData.EventsBookingPage.bookinConfirmedHeading);
         await expect(eventBookingPage.bookinRefId()).not.toBeEmpty();
 
         const customerName = await eventBookingPage.getBookedCustomerName();
         await expect(customerName).toBe('Sarthak');
 
         const noOfBookedTickets = await eventBookingPage.getNoOfTicketBooked();
-        await expect(noOfBookedTickets).toBe('10');
+        await expect(Number(noOfBookedTickets)).toBe(10);
 
 
 
