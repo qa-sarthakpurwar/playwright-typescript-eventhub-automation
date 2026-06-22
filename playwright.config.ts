@@ -4,15 +4,28 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
+  timeout: 40 * 1000,
+
+  expect: {
+    timeout: 5 * 1000,
+  },
+
+
+  reporter: [
+    ['list'],
+    ['html'],
+    ['allure-playwright']
+  ],
 
 
 
-  reporter: 'html',
   use: {
-    trace: 'on',
+    trace: 'retain-on-failure',
     headless: false,
-     screenshot: 'on',
-      baseURL: 'https://eventhub.rahulshettyacademy.com'
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
+    baseURL: 'https://eventhub.rahulshettyacademy.com',
+    viewport: { width: 720, height: 720 },
   },
 
 
@@ -21,17 +34,20 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
-/*
+
     {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
     },
 
     {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    }, 
-    */
+      name: 'Microsoft Edge',
+      use: {
+        ...devices['Desktop Edge'],
+        channel: 'msedge'
+      },
+    },
+
   ]
 
 });

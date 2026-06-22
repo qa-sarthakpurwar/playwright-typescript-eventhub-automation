@@ -7,7 +7,8 @@ export class EventBookingPage {
 
     bookTicketHeading = () => this.page.getByRole('heading', { name: 'Book Tickets' });
     ticketCount = () => this.page.locator('#ticket-count');
-    ticketIncrementBtn = () => this.page.locator('#ticket-count + button');
+    ticketIncrementBtn = () => this.page.locator('#ticket-count + button')
+    ticketDecrementBtn = () => this.page.locator('form button').first();
     fullNameInput = () => this.page.getByRole('textbox', { name: 'Full Name' });
     emailInput = () => this.page.getByRole('textbox', { name: 'Email' });
     phoneNoInput = () => this.page.getByRole('textbox', { name: 'Phone Number' });
@@ -20,8 +21,9 @@ export class EventBookingPage {
     ticketsBooked = () => this.page.locator('span:has-text("Tickets") + span');
 
 
+
     async bookTickets(tickets: any) {
-        
+
         let totalTicketCount = Number((await this.ticketCount().textContent())!.trim());
         while (totalTicketCount < tickets) {
             await this.ticketIncrementBtn().click();
@@ -59,6 +61,11 @@ export class EventBookingPage {
     async getNoOfTicketBooked() {
         const noOfBookedTickets = (await this.ticketsBooked().textContent())?.trim();
         return noOfBookedTickets;
+    }
+
+    async getSelectedTicketCount() {
+        const defaultTicketCount = (await this.ticketCount().first().textContent())?.trim();
+        return defaultTicketCount;
     }
 
 }

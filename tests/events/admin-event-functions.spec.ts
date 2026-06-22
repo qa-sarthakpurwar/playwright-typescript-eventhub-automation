@@ -6,7 +6,7 @@ const eventData = testData.EventsPage.eventDetails;
 
 test.describe('Admin Event & Function', () => {
 
-   test('Create new event', async ({ loginPage, page, dashboardPage, eventsPage }) => {
+   test('Create new event', async ({ loginPage, page, dashboardPage, manageEventsPage }) => {
 
       /** LOgin with valid cred*/
       await loginPage.navigateToLoginPage();
@@ -17,13 +17,13 @@ test.describe('Admin Event & Function', () => {
 
       /** Navigate to Manage  Evelts Page */
       await dashboardPage.navigateToManageEvents();
-      await expect(eventsPage.eventLimitText()).toContainText(testData.EventsPage.eventLimit);
+      await expect(manageEventsPage.eventLimitText()).toContainText(testData.EventsPage.eventLimit);
 
       /* Enter New Event  Details*/
-      await eventsPage.enterNewEventDetails(testData.EventsPage.eventDetails);
-      await eventsPage.addEventButton().click();
+      await manageEventsPage.enterNewEventDetails(testData.EventsPage.eventDetails);
+      await manageEventsPage.addEventButton().click();
 
-      await expect(eventsPage.eventCreatedToastMsg()).toBeVisible();
+      await expect(manageEventsPage.eventCreatedToastMsg()).toBeVisible();
 
    })
 
