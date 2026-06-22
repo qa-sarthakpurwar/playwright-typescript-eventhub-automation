@@ -5,7 +5,7 @@ import * as allure from 'allure-js-commons';
 
 test.describe('Admin Event & Function', () => {
 
-   test('Create new event', async ({ loginPage, page, dashboardPage, manageEventsPage }) => {
+   test('Create new event', async ({dashboardPage, manageEventsPage }) => {
 
       // 🔷 High-level metadata
       await allure.epic('EventHub Application');
@@ -20,31 +20,26 @@ test.describe('Admin Event & Function', () => {
 
       await allure.description('Verify that admin user can create a new event successfully from Manage Events page');
 
-      //  Step 1: Login
-      await allure.step('Login with valid credentials', async () => {
-         await loginPage.navigateToLoginPage();
-         await loginPage.login(testData.LoginPage.validUser);
-      });
 
-      //  Step 2: Verify dashboard
+      //  Step 1: Verify dashboard
       await allure.step('Verify user is on Admin Dashboard', async () => {
          await expect(dashboardPage.adminTab()).toBeVisible();
       });
 
-      //  Step 3: Navigate to Manage Events
+      //  Step 2: Navigate to Manage Events
       await allure.step('Navigate to Manage Events page', async () => {
          await dashboardPage.navigateToManageEvents();
          await expect(manageEventsPage.eventLimitText())
             .toContainText(testData.EventsPage.eventLimit);
       });
 
-      //  Step 4: Create new event
+      //  Step 3: Create new event
       await allure.step('Enter event details and create event', async () => {
          await manageEventsPage.enterNewEventDetails(testData.EventsPage.eventDetails);
          await manageEventsPage.addEventButton().click();
       });
 
-      //  Step 5: Validate event creation
+      //  Step 4: Validate event creation
       await allure.step('Verify event creation success message', async () => {
          await expect(manageEventsPage.eventCreatedToastMsg()).toBeVisible();
       });

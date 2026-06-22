@@ -5,7 +5,7 @@ import * as allure from 'allure-js-commons';
 
 test.describe('Booking Management', () => {
 
-    test('Book maximum allowed tickets (10) & cannot increase above limit', async ({ loginPage, dashboardPage, eventsTabPage, eventBookingPage, page }) => {
+    test('Book maximum allowed tickets (10) & cannot increase above limit', async ({dashboardPage, eventsTabPage, eventBookingPage, page }) => {
 
         // Metadata
         await allure.epic('EventHub Application');
@@ -16,32 +16,27 @@ test.describe('Booking Management', () => {
         await allure.tag('regression');
         await allure.description('Verify user can book maximum 10 tickets and cannot exceed limit');
 
-        // Step 1: Login
-        await allure.step('Login to application', async () => {
-            await loginPage.navigateToLoginPage();
-            await loginPage.login(testData.LoginPage.validUser);
-        });
 
-        // Step 2: Navigate to events
+        // Step 1: Navigate to events
         await allure.step('Navigate to Events page', async () => {
             await expect(dashboardPage.featuredEventsHeading()).toBeVisible();
             await dashboardPage.navigateToAllEvents();
             await expect(eventsTabPage.upcomingEventsHeading()).toBeVisible();
         });
 
-        // Step 3: Search event
+        // Step 2: Search event
         await allure.step('Search for specific event', async () => {
             await eventsTabPage.searchInput().fill(testData.EventsPage.eventDetails.title);
             await expect(eventsTabPage.bookNowButton()).toHaveCount(1);
         });
 
-        // Step 4: Open booking page
+        // Step 3: Open booking page
         await allure.step('Navigate to booking page', async () => {
             await eventsTabPage.navigateToEventBookingPage();
             await expect(eventBookingPage.bookTicketHeading()).toBeVisible();
         });
 
-        // Step 5: Select tickets
+        // Step 4: Select tickets
         await allure.step('Select 10 tickets and validate limit', async () => {
             await eventBookingPage.bookTickets(10);
             const selectedTickets = (await eventBookingPage.ticketCount().textContent())?.trim();
@@ -49,7 +44,7 @@ test.describe('Booking Management', () => {
             await expect(eventBookingPage.ticketIncrementBtn()).toBeDisabled();
         });
 
-        // Step 6: Enter user details
+        // Step 5: Enter user details
         await allure.step('Enter booking details', async () => {
             await eventBookingPage.enterUserDetailsInForm(
                 testData.EventsBookingPage.name,
@@ -58,7 +53,7 @@ test.describe('Booking Management', () => {
             );
         });
 
-        //  Step 7: Validate pricing
+        //  Step 6: Validate pricing
         await allure.step('Validate total price calculation', async () => {
             const ticketPrice = Number(eventBookingPage.getEventTicketPrice());
             const totalPrice = Number(eventBookingPage.getTotalPrice());
@@ -72,7 +67,7 @@ test.describe('Booking Management', () => {
             await expect(totalPrice).toBe(ticketPrice * 10);
         });
 
-        // Step 8: Confirm booking
+        // Step 7: Confirm booking
         await allure.step('Confirm booking and validate', async () => {
             await eventBookingPage.bookTheEvent();
 
@@ -86,7 +81,7 @@ test.describe('Booking Management', () => {
     });
 
 
-    test('Book minimum single ticket & cannot decrease below 1', async ({ loginPage, dashboardPage, eventsTabPage, eventBookingPage }) => {
+    test('Book minimum single ticket & cannot decrease below 1', async ({ dashboardPage, eventsTabPage, eventBookingPage }) => {
 
         // Metadata
         await allure.epic('EventHub Application');
@@ -97,33 +92,28 @@ test.describe('Booking Management', () => {
         await allure.tag('smoke');
         await allure.description('Verify user can book minimum 1 ticket and cannot decrease below 1');
 
-        //  Step 1: Login
-        await allure.step('Login to application', async () => {
-            await loginPage.navigateToLoginPage();
-            await loginPage.login(testData.LoginPage.validUser);
-        });
 
-        //  Step 2: Navigate to event
+        //  Step 1: Navigate to event
         await allure.step('Navigate to specific event', async () => {
             await dashboardPage.navigateToAllEvents();
             await eventsTabPage.searchInput().fill(testData.EventsPage.eventDetails.title);
             await expect(eventsTabPage.bookNowButton()).toHaveCount(1);
         });
 
-        // Step 3: Open booking page
+        // Step 2: Open booking page
         await allure.step('Open booking page', async () => {
             await eventsTabPage.navigateToEventBookingPage();
             await expect(eventBookingPage.bookTicketHeading()).toBeVisible();
         });
 
-        //  Step 4: Validate default ticket
+        //  Step 3: Validate default ticket
         await allure.step('Validate minimum ticket constraint', async () => {
             const defaultCount = await eventBookingPage.getSelectedTicketCount();
             await expect(Number(defaultCount)).toBe(1);
             await expect(eventBookingPage.ticketDecrementBtn()).toBeDisabled();
         });
 
-        //  Step 5: Book ticket
+        //  Step 4: Book ticket
         await allure.step('Book single ticket', async () => {
             await eventBookingPage.bookTickets(1);
             await eventBookingPage.enterUserDetailsInForm(
@@ -133,7 +123,7 @@ test.describe('Booking Management', () => {
             );
         });
 
-        //  Step 6: Validate price
+        //  Step 5: Validate price
         await allure.step('Validate pricing for single ticket', async () => {
             const ticketPrice = Number(eventBookingPage.getEventTicketPrice());
             const totalPrice = Number(eventBookingPage.getTotalPrice());
@@ -141,7 +131,7 @@ test.describe('Booking Management', () => {
             await expect(totalPrice).toBe(ticketPrice);
         });
 
-        //  Step 7: Confirm booking
+        //  Step 6: Confirm booking
         await allure.step('Confirm booking', async () => {
             await eventBookingPage.bookTheEvent();
 
