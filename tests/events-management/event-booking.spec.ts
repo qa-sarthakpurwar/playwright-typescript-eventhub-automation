@@ -3,7 +3,7 @@ import { expect } from '@playwright/test';
 import testData from '../../test-data/eventhub-data.json';
 import * as allure from 'allure-js-commons';
 
-test.describe('Booking Management', () => {
+test.describe('Event Booking Management', () => {
 
     test('Book maximum allowed tickets (10) & cannot increase above limit', async ({dashboardPage, eventsTabPage, eventBookingPage, page }) => {
 
