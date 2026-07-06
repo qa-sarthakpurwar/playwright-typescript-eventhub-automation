@@ -1,45 +1,60 @@
 import { test } from '../../fixtures/baseFixture';
 import { expect } from '@playwright/test';
-
-
+import * as allure from 'allure-js-commons';
 
 test.describe('Admin Booking Operations', () => {
 
-    test('Verify that admin can view and validate booking details', async ({ page }) => {
-        /** Verify that admin is on dashboard page*/
+    test('Verify that admin can view and validate booking details', async ({dashboardPage,manageBookingPage}) => {
 
-        const dashboardHeading = await page.locator('h1 +  p').innerText();
-        await expect(dashboardHeading).toContain('From tech conferences to live concerts');
+        await allure.epic('EventHub Application');
+        await allure.feature('Booking Management');
+        await allure.story('Admin Booking Details Validation');
+        await allure.severity('critical');
+        await allure.owner('Sarthak');
+        await allure.tag('regression');
+        await allure.description(
+            'Verify that an admin can view and validate the details of a confirmed booking.'
+        );
 
-        /** Navigate to Manage Booking Page*/
-        await page.getByRole('button', { name: 'Admin' }).click();
-        await page.getByRole('link', { name: 'Manage Bookings' }).click();
+        // Step 1: Verify dashboard
+        await allure.step('Verify admin is on the Dashboard page', async () => {
+            const dashboardHeading = await dashboardPage.getDashBoardHeading();
+            await expect(dashboardHeading).toContain(
+                'From tech conferences to live concerts'
+            );
+        });
 
-        /*Verify that user is in Manage  Booking Page* */
-        await expect(page.getByRole('heading', { name: 'Manage Bookings' })).toBeVisible();
+        // Step 2: Navigate to Manage Bookings
+        await allure.step('Navigate to the Manage Bookings page', async () => {
+            await dashboardPage.navigateToManageBookings();
+        });
 
-        await expect(page.locator('tbody tr').first().locator('td').nth(5)).toHaveText('confirmed');
+        // Step 3: Validate booking list
+        await allure.step('Verify confirmed booking is displayed', async () => {
+            await expect(manageBookingPage.manageBookingHeading()).toBeVisible();
+            await expect(manageBookingPage.confirmedText()).toHaveText('confirmed');
+        });
 
-        await page.getByRole('button', { name: 'View' }).first().click();
+        // Step 4: Open booking details
+        await allure.step('Open booking details', async () => {
+            await manageBookingPage.bookingViewButton().click();
+        });
 
-        /** Verify the booking details */
-        await expect(page.locator("div[aria-labelledby='modal-title']  div.items-start span.inline-flex")).toBeVisible();
-        await expect(page.locator("//span[text()='Title']/following-sibling::span")).toHaveText('Tech Meetup');
-        await expect(page.locator("//span[text()='City']/following-sibling::span")).toHaveText('Hyderabad');
-        const email = await page
-            .locator("//span[text()='Email']/following-sibling::span")
-            .textContent();
+        // Step 5: Validate booking details
+        await allure.step('Validate booking details', async () => {
+            await expect(manageBookingPage.confirmTextDetailsWindow()).toBeVisible();
+            await expect(manageBookingPage.bookingTitleDetailsWindow()).toHaveText('Tech Meetup');
+            await expect(manageBookingPage.bookingCityDetailsWindow()).toHaveText('Hyderabad');
 
-        expect(email).not.toBeNull();
+            const bookedEmail = await manageBookingPage.getEmailValueDetailsWindow();
+            expect(bookedEmail).not.toBeNull();
+        });
 
-        await page.locator("button[aria-label='Close']").click();
-
-
-
-
-
+        // Step 6: Close booking details
+        await allure.step('Close booking details window', async () => {
+            await manageBookingPage.closeDetailsWindow();
+        });
 
     });
 
 });
-

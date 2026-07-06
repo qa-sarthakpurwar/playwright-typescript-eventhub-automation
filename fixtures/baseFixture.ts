@@ -5,6 +5,7 @@ import { ManageEventsPage } from '../pages/ManageEventsPage';
 import { EventsTabPage } from '../pages/EventsTabPage';
 import { EventBookingPage } from '../pages/EventBookingPage';
 import { APIUtils } from '../Utils/APIUtils';
+import { ManageBookingPage } from '../pages/ManageBookingsPage';
 
 
 export const test = base.extend<{
@@ -15,6 +16,7 @@ export const test = base.extend<{
     eventsTabPage: EventsTabPage;
     eventBookingPage: EventBookingPage;
     token: string;
+    manageBookingPage: ManageBookingPage;
 
 }>
 
@@ -27,7 +29,7 @@ export const test = base.extend<{
             await page.goto("https://eventhub.rahulshettyacademy.com/");
             await use(page);
         },
-        
+
         token: async ({ }, use) => {
             const apiContext = await request.newContext();
             const apiUtils = new APIUtils(apiContext)
@@ -54,6 +56,10 @@ export const test = base.extend<{
         eventBookingPage: async ({ page }, use) => {
             const eventBookingPage = new EventBookingPage(page);
             await use(eventBookingPage);
+        },
+        manageBookingPage: async ({ page }, use) => {
+            const manageBookingPage = new ManageBookingPage(page);
+            await use(manageBookingPage);
         }
 
 
