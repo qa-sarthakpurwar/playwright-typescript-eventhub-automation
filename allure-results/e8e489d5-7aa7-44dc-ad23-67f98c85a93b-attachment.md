@@ -1,0 +1,248 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: booking-management\admin-booking-operations.spec.ts >> Admin Booking Operations >> Verify that admin can view and validate booking details
+- Location: tests\booking-management\admin-booking-operations.spec.ts:8:9
+
+# Error details
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: locator('span').filter({ hasText: 'confirmed' })
+Expected: visible
+Error: strict mode violation: locator('span').filter({ hasText: 'confirmed' }) resolved to 4 elements:
+    1) <span class="↵        inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold↵        bg-emerald-100 text-emerald-700 ring-1 ring-emerald-200↵        ↵      ">confirmed</span> aka getByText('confirmed').nth(1)
+    2) <span class="↵        inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold↵        bg-emerald-100 text-emerald-700 ring-1 ring-emerald-200↵        ↵      ">confirmed</span> aka getByText('confirmed').nth(2)
+    3) <span class="font-medium text-gray-900 text-right">…</span> aka locator('span').filter({ hasText: 'confirmed' }).nth(2)
+    4) <span class="↵        inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold↵        bg-emerald-100 text-emerald-700 ring-1 ring-emerald-200↵        ↵      ">confirmed</span> aka getByLabel('Booking — T-PAD148').getByText('confirmed')
+
+Call log:
+  - Expect "toBeVisible" with timeout 5000ms
+  - waiting for locator('span').filter({ hasText: 'confirmed' })
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e4]:
+      - link "EventHub" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img [ref=e7]
+        - generic [ref=e9]: EventHub
+      - generic [ref=e10]:
+        - link "Home" [ref=e11] [cursor=pointer]:
+          - /url: /
+        - link "Events" [ref=e12] [cursor=pointer]:
+          - /url: /events
+        - link "My Bookings" [ref=e13] [cursor=pointer]:
+          - /url: /bookings
+        - link "API Docs" [ref=e14] [cursor=pointer]:
+          - /url: https://api.eventhub.rahulshettyacademy.com/api/docs
+        - button "Admin" [ref=e16] [cursor=pointer]:
+          - text: Admin
+          - img [ref=e17]
+        - generic [ref=e19]:
+          - generic "signaturemusic12@gmail.com" [ref=e20]
+          - button "Logout" [ref=e21] [cursor=pointer]
+  - main [ref=e22]:
+    - generic [ref=e23]:
+      - generic [ref=e24]:
+        - generic [ref=e25]:
+          - heading "Manage Bookings" [level=1] [ref=e26]
+          - paragraph [ref=e27]: 2 total bookings
+        - combobox [ref=e29] [cursor=pointer]:
+          - option "All Statuses" [selected]
+          - option "Confirmed"
+          - option "Cancelled"
+      - table [ref=e32]:
+        - rowgroup [ref=e33]:
+          - row "Ref Customer Event Qty Total Status Date Actions" [ref=e34]:
+            - columnheader "Ref" [ref=e35]
+            - columnheader "Customer" [ref=e36]
+            - columnheader "Event" [ref=e37]
+            - columnheader "Qty" [ref=e38]
+            - columnheader "Total" [ref=e39]
+            - columnheader "Status" [ref=e40]
+            - columnheader "Date" [ref=e41]
+            - columnheader "Actions" [ref=e42]
+        - rowgroup [ref=e43]:
+          - row "T-PAD148 Sarthak signaturemusic12@gmail.com Tech Meetup 10 $5,000 confirmed 22 Jun 2026 View Cancel" [ref=e44]:
+            - cell "T-PAD148" [ref=e45]
+            - cell "Sarthak signaturemusic12@gmail.com" [ref=e46]:
+              - paragraph [ref=e47]: Sarthak
+              - paragraph [ref=e48]: signaturemusic12@gmail.com
+            - cell "Tech Meetup" [ref=e49]
+            - cell "10" [ref=e50]
+            - cell "$5,000" [ref=e51]
+            - cell "confirmed" [ref=e52]:
+              - generic [ref=e53]: confirmed
+            - cell "22 Jun 2026" [ref=e54]
+            - cell "View Cancel" [ref=e55]:
+              - generic [ref=e56]:
+                - button "View" [active] [ref=e57] [cursor=pointer]
+                - button "Cancel" [ref=e58] [cursor=pointer]
+          - row "T-ZX2T8J Sarthak signaturemusic12@gmail.com Tech Meetup 1 $500 confirmed 22 Jun 2026 View Cancel" [ref=e59]:
+            - cell "T-ZX2T8J" [ref=e60]
+            - cell "Sarthak signaturemusic12@gmail.com" [ref=e61]:
+              - paragraph [ref=e62]: Sarthak
+              - paragraph [ref=e63]: signaturemusic12@gmail.com
+            - cell "Tech Meetup" [ref=e64]
+            - cell "1" [ref=e65]
+            - cell "$500" [ref=e66]
+            - cell "confirmed" [ref=e67]:
+              - generic [ref=e68]: confirmed
+            - cell "22 Jun 2026" [ref=e69]
+            - cell "View Cancel" [ref=e70]:
+              - generic [ref=e71]:
+                - button "View" [ref=e72] [cursor=pointer]
+                - button "Cancel" [ref=e73] [cursor=pointer]
+  - contentinfo [ref=e74]:
+    - generic [ref=e75]:
+      - generic [ref=e76]:
+        - generic [ref=e77]:
+          - heading "Rahul Shetty Academy" [level=3] [ref=e78]
+          - paragraph [ref=e79]: India's leading QA automation training academy — empowering engineers to build real-world testing skills.
+        - generic [ref=e80]:
+          - heading "Popular Courses" [level=3] [ref=e81]
+          - list [ref=e82]:
+            - listitem [ref=e83]:
+              - link "Selenium WebDriver with Java" [ref=e84] [cursor=pointer]:
+                - /url: https://rahulshettyacademy.com
+            - listitem [ref=e85]:
+              - link "Playwright with JavaScript" [ref=e86] [cursor=pointer]:
+                - /url: https://rahulshettyacademy.com
+            - listitem [ref=e87]:
+              - link "RestAssured API Testing" [ref=e88] [cursor=pointer]:
+                - /url: https://rahulshettyacademy.com
+            - listitem [ref=e89]:
+              - link "Cypress End-to-End Testing" [ref=e90] [cursor=pointer]:
+                - /url: https://rahulshettyacademy.com
+            - listitem [ref=e91]:
+              - link "Appium Mobile Testing" [ref=e92] [cursor=pointer]:
+                - /url: https://rahulshettyacademy.com
+        - generic [ref=e93]:
+          - heading "QA Job Hiring Platform" [level=3] [ref=e94]
+          - paragraph [ref=e95]: Get hired faster — take skill assessments trusted by top QA employers worldwide.
+          - link "techsmarthire.com →" [ref=e96] [cursor=pointer]:
+            - /url: https://techsmarthire.com
+        - generic [ref=e97]:
+          - heading "EventHub Practice App" [level=3] [ref=e98]
+          - list [ref=e99]:
+            - listitem [ref=e100]:
+              - link "Browse Events" [ref=e101] [cursor=pointer]:
+                - /url: /events
+            - listitem [ref=e102]:
+              - link "My Bookings" [ref=e103] [cursor=pointer]:
+                - /url: /bookings
+            - listitem [ref=e104]:
+              - link "Manage Events" [ref=e105] [cursor=pointer]:
+                - /url: /admin/events
+            - listitem [ref=e106]:
+              - link "API Documentation" [ref=e107] [cursor=pointer]:
+                - /url: https://api.eventhub.rahulshettyacademy.com/api/docs
+      - generic [ref=e108]:
+        - paragraph [ref=e109]: © 2026 Rahul Shetty Academy. All rights reserved.
+        - generic [ref=e110]:
+          - link "rahulshettyacademy.com →" [ref=e111] [cursor=pointer]:
+            - /url: https://rahulshettyacademy.com
+          - link "techsmarthire.com →" [ref=e112] [cursor=pointer]:
+            - /url: https://techsmarthire.com
+  - alert [ref=e113]
+  - dialog "Booking — T-PAD148" [ref=e116]:
+    - generic [ref=e117]:
+      - heading "Booking — T-PAD148" [level=2] [ref=e118]
+      - button "Close" [ref=e119] [cursor=pointer]:
+        - img [ref=e120]
+    - generic [ref=e123]:
+      - generic [ref=e124]:
+        - generic [ref=e125]: Reference
+        - generic [ref=e126]: T-PAD148
+      - generic [ref=e127]:
+        - generic [ref=e128]: Status
+        - generic [ref=e130]: confirmed
+      - generic [ref=e131]:
+        - paragraph [ref=e132]: Event
+        - generic [ref=e133]:
+          - generic [ref=e134]: Title
+          - generic [ref=e135]: Tech Meetup
+        - generic [ref=e136]:
+          - generic [ref=e137]: Date
+          - generic [ref=e138]: 20 Jul 2026
+        - generic [ref=e139]:
+          - generic [ref=e140]: City
+          - generic [ref=e141]: Hyderabad
+      - generic [ref=e142]:
+        - paragraph [ref=e143]: Customer
+        - generic [ref=e144]:
+          - generic [ref=e145]: Name
+          - generic [ref=e146]: Sarthak
+        - generic [ref=e147]:
+          - generic [ref=e148]: Email
+          - generic [ref=e149]: signaturemusic12@gmail.com
+        - generic [ref=e150]:
+          - generic [ref=e151]: Phone
+          - generic [ref=e152]: "464692462398"
+      - generic [ref=e153]:
+        - generic [ref=e154]:
+          - generic [ref=e155]: Tickets
+          - generic [ref=e156]: "10"
+        - generic [ref=e157]:
+          - generic [ref=e158]: Total
+          - generic [ref=e159]: $5,000
+        - generic [ref=e160]:
+          - generic [ref=e161]: Booked on
+          - generic [ref=e162]: 22 Jun 2026
+```
+
+# Test source
+
+```ts
+  1  | import { test } from '../../fixtures/baseFixture';
+  2  | import { expect } from '@playwright/test';
+  3  | 
+  4  | 
+  5  | 
+  6  | test.describe('Admin Booking Operations', () => {
+  7  | 
+  8  |     test('Verify that admin can view and validate booking details', async ({ page }) => {
+  9  |         /** Verify that admin is on dashboard page*/
+  10 | 
+  11 |         const dashboardHeading = await page.locator('h1 +  p').innerText();
+  12 |         await expect(dashboardHeading).toContain('From tech conferences to live concerts');
+  13 | 
+  14 |         /** Navigate to Manage Booking Page*/
+  15 |         await page.getByRole('button', { name: 'Admin' }).click();
+  16 |         await page.getByRole('link', { name: 'Manage Bookings' }).click();
+  17 | 
+  18 |         /*Verify that user is in Manage  Booking Page* */
+  19 |         await expect(page.getByRole('heading', { name: 'Manage Bookings' })).toBeVisible();
+  20 | 
+  21 |         await expect(page.locator('tbody tr').first().locator('td').nth(5)).toHaveText('confirmed');
+  22 | 
+  23 |         await page.getByRole('button', { name: 'View' }).first().click();
+  24 | 
+  25 |         /** Verify the booking details */
+> 26 |         await expect(page.locator('span').filter({ hasText: 'confirmed' })).toBeVisible();
+     |                                                                             ^ Error: expect(locator).toBeVisible() failed
+  27 |         const bookingTitle = await page.locator('span').filter({ hasText: 'Title' }).locator('span').innerText();
+  28 |         console.log(bookingTitle);
+  29 | 
+  30 | 
+  31 | 
+  32 | 
+  33 | 
+  34 | });
+  35 | 
+  36 | });
+  37 | 
+  38 | 
+```
